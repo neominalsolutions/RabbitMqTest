@@ -1,4 +1,6 @@
 using MassTransit;
+using RabbbitMqMessages.Messages;
+using RabbitMqSubsciber.Consumers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,22 +11,19 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-
-// mastransit tanýmý
 builder.Services.AddMassTransit(config =>
 {
+  config.AddConsumer<AssignTaskConsumer>();
+
   config.UsingRabbitMq((context, cfg) =>
   {
     cfg.Host(builder.Configuration.GetConnectionString("RabbitMq"));
-    // appstettings dosyasýndaki connectionStrings den baðlanacak
-    cfg.ConfigureEndpoints(context);
-    // uygulama içerisinde publish ve subcsribe iþlemleri için rabbitmq configure ettik.
+
+    cfg.ReceiveEndpoint("deneme", e => e.ConfigureConsumer<AssignTaskConsumer>(context));
   });
 });
 
-
 var app = builder.Build();
-
 
 
 // Configure the HTTP request pipeline.
