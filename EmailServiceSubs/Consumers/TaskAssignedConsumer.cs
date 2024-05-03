@@ -1,4 +1,5 @@
 ﻿using MassTransit;
+
 using RabbbitMqMessages.Messages;
 using System;
 using System.Collections.Generic;

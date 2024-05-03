@@ -33,7 +33,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\RabbbitMqMessages\RabbbitMqMessages.csproj" />
+    <ProjectReference Include="..\RabbitMqMessage\RabbitMqMessage.csproj" />
   </ItemGroup>
 
 </Project>
